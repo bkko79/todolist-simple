@@ -21,7 +21,7 @@ const List = ({todos, onRemove, onToggle}) => {
     <TodoItem 
       todoDone={todo.done} 
       key={i} 
-      onClick={(e) => {e.stopPropagation();onToggle(todo.id)}}
+      onClick={(e) => {e.stopPropagation();onToggle(i)}}
     >
       {todo.text}
       <CancelX 

@@ -22,7 +22,16 @@ class TodoTemplate extends Component {
         { id: 0, text: 'todo test', done: false}
       ],
       index: 0,
+      date: new Date().toLocaleString('ja-jp'),
     }
+  }
+  
+  componentDidMount(){
+    setInterval( () => {
+      this.setState({
+        date: new Date().toLocaleString('ja-jp')
+      })
+    }, 1000)
   }
 
   handleChange = (e) => {
@@ -42,7 +51,7 @@ class TodoTemplate extends Component {
 
     const { input, todos, index } = this.state;
     let newTodos = todos;
-    newTodos[index] = {
+    newTodos[index+1] = {
       'id': index+1,
       'text': input,
       'done': false,
@@ -61,17 +70,18 @@ class TodoTemplate extends Component {
   }
 
   handleRemove = (id) => {
-    const { todos, index } = this.state;
+    const { todos } = this.state;
     let newTodos = todos.filter(task => task.id !== id);
-    this.setState({todos: newTodos, index: index-1});
+    this.setState({todos: newTodos});
   }
 
   render() {
-    const { input, todos } = this.state;
+    const { input, todos, date } = this.state;
     const { handleChange, handleKeyPress, handleCreate, handleRemove, handleToggle } = this;
 
     return (
       <TodoWrapper>
+        <div>{date}</div>
         <Form
           value={input}
           onChange={handleChange}
